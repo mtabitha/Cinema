@@ -1,7 +1,7 @@
 package edu.school21.cinema.service;
 
 import edu.school21.cinema.model.Movie;
-import edu.school21.cinema.repositories.MoveRepo;
+import edu.school21.cinema.repositories.MovieRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,21 +13,21 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class MoveService {
+public class MovieService {
 
     @Autowired
-    public MoveRepo moveRepo;
+    public MovieRepo movieRepo;
 
     @Value("${storage.path}")
     private String storagePath;
 
     public List<Movie> getMoves() {
-        return moveRepo.findAll();
+        return movieRepo.findAll();
     }
 
     public void addNew(Movie movie, MultipartFile file) throws IOException {
         movie.setPosterLink(savePoster(file));
-        moveRepo.save(movie);
+        movieRepo.save(movie);
     }
 
     private String savePoster(MultipartFile file) throws IOException {

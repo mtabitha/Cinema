@@ -38,22 +38,43 @@
         <thead bgcolor="#C0C0C0">
         <tr>
             <th>Id</th>
-            <th>Size</th>
+            <th>Hall</th>
+            <th>Movie Name</th>
+            <th>Movie Year</th>
+            <th>Time</th>
+            <th>Price</th>
         </tr>
         </thead>
         <tbody>
-        <#list halls as hall>
+        <#list sessions as session>
             <tr >
-                <td width="50%" align="center">${hall.id}</td>
-                <td width="50%" align="center">${hall.size}</td>
+                <td width="50%" align="center">${session.id}</td>
+                <td width="50%" align="center">${session.hall.id}</td>
+                <td width="50%" align="center">${session.movie.title}</td>
+                <td width="50%" align="center">${session.movie.year}</td>
+                <td width="50%" align="center">${session.time}</td>
+                <td width="50%" align="center">${session.price}</td>
             </tr>
         </#list>
         </tbody>
     </table>
     <br/>
-    <form action="/admin/panel/halls" method="post">
-        <input type="text" name="size" placeholder="Size: "/>
-        <input type="submit" value="New Hall"/>
+    <form method="post">
+        <select name="movieId" >
+            <#list movies as movie>
+                <option value="${movie.id}">${movie.title}</option>
+            </#list>
+        </select>
+        <select name="hallId">
+            <#list halls as hall>
+                <option value="${hall.id}">${hall.id}</option>
+            </#list>
+        </select>
+        <input type="time"  name="time">
+        <input type="text" name="price" placeholder="Price: ">
+        <button type="submit" >New Session</button>
     </form>
+
+
 </body>
 </html>
