@@ -35,6 +35,8 @@ public class SessionJQueryController {
     public String showSession(@PathVariable Long id,
                               Model model) {
 
+        System.out.println("GET");
+
         List<Session> sessions = new ArrayList<>();
 
         sessionService.getSession(id).ifPresent(sessions::add);

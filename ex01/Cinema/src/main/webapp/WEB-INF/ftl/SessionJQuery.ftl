@@ -33,15 +33,38 @@
         }
     </style>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $("#search").keyup( function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/sessions/search",
+                    data: {"filmName" : $("#search").val()},
+                    success: function (date) {
+                        $("#resp").empty()
+                        for (const element of date) {
+                            $("#resp").append(
+                                '<tr>' +
+                                '<td>' + element.time + '</td>' +
+                                '<td><a href ="/sessions/' + element.id + '">' + element.movie.title + '</a></td>' +
+                                '<td><img src="/admin/panel/films/poster/' + element.movie.posterLink + '" width="50" height="50"></td>' +
+                                '</tr>'
+                            )
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 
 </head>
 <body>
 
     <input type="text" name="search" id="search" placeholder="Movie name: "/>
 
-    <table id="tbl" width="1000" border="1" cellpadding="4" cellspacing="0">
+    <table width="1000" border="1" cellpadding="4" cellspacing="0">
         <thead bgcolor="#C0C0C0">
         <tr>
             <th>Time</th>
@@ -49,35 +72,9 @@
             <th>Poster</th>
         </tr>
         </thead>
-        <tbody id="ajaxResponse">
+        <tbody id="resp">
         </tbody>
     </table>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#search").keyup(function () {
-                $("#ajaxResponse").html('');
-                $("#tbl > tbody").empty();
-                $.ajax({
-                    url: "/sessions/search",
-                    type: "GET",
-                    data: {'filmName': $("#search").val()},
-                    dataType: 'json',
-                    success: function (date) {
-                        for (const element of date) {
-                            $("#ajaxResponse").append(
-                                '<tr>' +
-                                    '<td>' + element.time + '</td>' +
-                                    '<td><a href ="/sessions/' + element.id + '">' + element.movie.title + '</a></td>' +
-                                    '<td><img src="/admin/panel/films/poster/' + element.movie.posterLink + '" width="50" height="50"></td>' +
-                                '</tr>'
-                            )
-                        }
-                    },
-                })
-            })
-        })
-    </script>
 
 </body>
 </html>
