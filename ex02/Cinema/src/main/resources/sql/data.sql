@@ -1,0 +1,3 @@
+-- insert into Hall values (1,15);
+-- insert into Hall values (2,20);
+-- insert into Hall values (3,30);
