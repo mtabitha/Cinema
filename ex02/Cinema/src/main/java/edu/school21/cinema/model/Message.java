@@ -17,6 +17,8 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    private Long channelId;
+
     private String text;
 
     @ManyToOne

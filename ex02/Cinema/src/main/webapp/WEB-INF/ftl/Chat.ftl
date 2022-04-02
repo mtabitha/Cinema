@@ -8,26 +8,14 @@
   <script type="text/javascript">
     var stompClient = null;
 
-    function setConnected(connected) {
-      $("#connect").prop("disabled", connected);
-      $("#disconnect").prop("disabled", !connected);
-      if (connected) {
-        $("#conversation").show();
-      }
-      else {
-        $("#conversation").hide();
-      }
-      $("#greetings").html("");
-    }
-
     function connect(path) {
       var socket = new SockJS('/ws');
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame) {
-        setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic' + path + "/messages", function (message) {
-          showGreeting(JSON.parse(message.body));
+          console.log(message)
+          showMessage(JSON.parse(message.body).con);
         });
       });
     }
@@ -36,16 +24,23 @@
       if (stompClient !== null) {
         stompClient.disconnect();
       }
-      setConnected(false);
-      console.log("Disconnected");
     }
 
-    function sendName(path) {
-      stompClient.send("/app" + path, {}, JSON.stringify({'text': $("#text").val()}));
+
+    function sendMessage(path) {
+      var id = document.cookie.split(';').find(s => s.match('id')).split('=')[1];
+      stompClient.send("/app" + path, {}, JSON.stringify({'text': $("#text").val(), 'channelId' : id}));
     }
 
-    function showGreeting(message) {
-      $("#greetings").append("<tr><td>" + message.text + "</td></tr>");
+    function showMessages(messages) {
+      $("#resp").empty()
+      for (const message of messages) {
+        showMessage(message)
+      }
+    }
+
+    function showMessage(message) {
+      $("#messages").append("<tr><td>" + message.text + "</td></tr>");
     }
 
     $(function () {
@@ -53,27 +48,18 @@
         e.preventDefault();
       });
       const path = new URL(document.URL, document.location, true).pathname;
-      console.log('Path: ' + path);
       connect(path);
-      $( "#disconnect" ).click(function() { disconnect(); });
-      $( "#send" ).click(function() { sendName(path); });
+      $(window).unload( function () { disconnect()})
+      $( "#send" ).click(function() { sendMessage(path); });
     });
+
   </script>
+
 </head>
 <body>
 
 <div id="main-content" class="container">
   <div class="row">
-    <div class="col-md-6">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="connect">WebSocket connection:</label>
-          <button id="connect" class="btn btn-default" type="submit">Connect</button>
-          <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-          </button>
-        </div>
-      </form>
-    </div>
     <div class="col-md-6">
       <form class="form-inline">
         <div class="form-group">
@@ -92,7 +78,12 @@
           <th>Greetings</th>
         </tr>
         </thead>
-        <tbody id="greetings">
+        <tbody id="messages">
+        <#list messages as message>
+          <tr >
+            <td width="50%" align="center">${message.text}</td>
+          </tr>
+        </#list>
         </tbody>
       </table>
     </div>

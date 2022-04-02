@@ -22,8 +22,8 @@ public class User {
     private LocalDateTime dateTime;
     private String          ip;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private List<Message> messages;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+//    private List<Message> messages;
 
     public String getDate() {
         return dateTime.getMonth() + " " + dateTime.format(DateTimeFormatter.ofPattern("dd, yyyy"));
@@ -33,9 +33,9 @@ public class User {
         return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 
-    public User(LocalDateTime dateTime, String ip, List<Message> messages) {
+    public User(LocalDateTime dateTime, String ip/*, List<Message> messages*/) {
         this.dateTime = dateTime;
         this.ip = ip;
-        this.messages = messages;
+//        this.messages = messages;
     }
 }
