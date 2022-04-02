@@ -50,7 +50,6 @@ public class MessageController {
         if (req.getCookies() == null) {
             User newUser = new User(LocalDateTime.now(), req.getRemoteAddr()/*, new ArrayList<>()*/);
             newUser = userService.addNew(newUser);
-            System.out.println(newUser);
             Cookie cookie = new Cookie("id", newUser.getId().toString());
             resp.addCookie(cookie);
         }
@@ -63,15 +62,11 @@ public class MessageController {
     public void greeting(@DestinationVariable("channel_id") Long channelId,
                          Message message) throws Exception {
         Long userId = message.getChannelId();
-        System.out.println(userId);
         User userFromDB = userService.getUserId(userId);
-
-        System.out.println(userFromDB);
 
         message.setChannelId(channelId);
         message.setUser(userFromDB);
         message = messageRepo.save(message);
-        System.out.println(message);
         template.convertAndSend("/topic/films/" + channelId + "/chat/messages", message);
     }
 

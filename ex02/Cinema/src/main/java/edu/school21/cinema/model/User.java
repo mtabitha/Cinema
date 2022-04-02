@@ -22,8 +22,7 @@ public class User {
     private LocalDateTime dateTime;
     private String          ip;
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-//    private List<Message> messages;
+    private String          image;
 
     public String getDate() {
         return dateTime.getMonth() + " " + dateTime.format(DateTimeFormatter.ofPattern("dd, yyyy"));
@@ -37,5 +36,9 @@ public class User {
         this.dateTime = dateTime;
         this.ip = ip;
 //        this.messages = messages;
+    }
+
+    public String getDateTime() {
+        return getTime();
     }
 }

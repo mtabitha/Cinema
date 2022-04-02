@@ -21,6 +21,11 @@ public class Message {
 
     private String text;
 
+    public Message(Long channelId, String text) {
+        this.channelId = channelId;
+        this.text = text;
+    }
+
     @ManyToOne
     private User user;
 }

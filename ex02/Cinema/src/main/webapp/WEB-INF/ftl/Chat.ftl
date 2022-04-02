@@ -12,10 +12,8 @@
       var socket = new SockJS('/ws');
       stompClient = Stomp.over(socket);
       stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
         stompClient.subscribe('/topic' + path + "/messages", function (message) {
-          console.log(message)
-          showMessage(JSON.parse(message.body).con);
+          showGreeting(JSON.parse(message.body));
         });
       });
     }
@@ -26,21 +24,19 @@
       }
     }
 
-
-    function sendMessage(path) {
+    function sendName(path) {
       var id = document.cookie.split(';').find(s => s.match('id')).split('=')[1];
-      stompClient.send("/app" + path, {}, JSON.stringify({'text': $("#text").val(), 'channelId' : id}));
+      stompClient.send("/app" + path, {}, JSON.stringify({'text': $("#name").val(), 'channelId' : id}));
     }
 
-    function showMessages(messages) {
-      $("#resp").empty()
-      for (const message of messages) {
-        showMessage(message)
-      }
-    }
-
-    function showMessage(message) {
-      $("#messages").append("<tr><td>" + message.text + "</td></tr>");
+    function showGreeting(message) {
+      $("#greetings").append(
+              '<tr>' +
+                '<td>user' + message.user.id + '</td>' +
+                '<td>' + message.text + '</td>' +
+                '<td><img src="/admin/panel/films/poster/' + message.user.image + '" width="50" height="50"></td>' +
+              '</tr>'
+      )
     }
 
     $(function () {
@@ -49,22 +45,20 @@
       });
       const path = new URL(document.URL, document.location, true).pathname;
       connect(path);
-      $(window).unload( function () { disconnect()})
-      $( "#send" ).click(function() { sendMessage(path); });
+      $( "#send" ).click(function() { sendName(path); $('#name').val(''); });
     });
 
   </script>
 
 </head>
 <body>
-
 <div id="main-content" class="container">
   <div class="row">
     <div class="col-md-6">
       <form class="form-inline">
         <div class="form-group">
           <label for="name">What is your name?</label>
-          <input type="text" id="text" class="form-control" placeholder="Your name here...">
+          <input type="text" id="name" class="form-control" placeholder="Your name here...">
         </div>
         <button id="send" class="btn btn-default" type="submit">Send</button>
       </form>
@@ -75,13 +69,21 @@
       <table id="conversation" class="table table-striped">
         <thead>
         <tr>
-          <th>Greetings</th>
+          <th>User</th>
+          <th>Text</th>
+          <th>Image</th>
         </tr>
         </thead>
-        <tbody id="messages">
+        <tbody id="greetings">
         <#list messages as message>
           <tr >
+            <td width="50%" align="center">user${message.user.id}</td>
             <td width="50%" align="center">${message.text}</td>
+            <td width="50%" align="center">
+              <#if message.user.image??>
+                <img src="/admin/panel/films/poster/${message.user.image}" width="50" height="50">
+              </#if>
+            </td>
           </tr>
         </#list>
         </tbody>
