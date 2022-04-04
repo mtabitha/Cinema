@@ -22,7 +22,8 @@ public class User {
     private LocalDateTime dateTime;
     private String          ip;
 
-    private String          image;
+    @OneToOne
+    private Image          avatar;
 
     public String getDate() {
         return dateTime.getMonth() + " " + dateTime.format(DateTimeFormatter.ofPattern("dd, yyyy"));

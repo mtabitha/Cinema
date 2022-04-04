@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface MessageRepo extends JpaRepository<Message, Long> {
 
-    List<Message> findAllByChannelId(Long channelId);
-
+    List<Message> findTop20ByChannelIdOrderByDateTimeDesc(Long channelId);
 
 }

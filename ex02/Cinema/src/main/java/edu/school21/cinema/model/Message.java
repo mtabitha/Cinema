@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -21,9 +22,16 @@ public class Message {
 
     private String text;
 
-    public Message(Long channelId, String text) {
+    private LocalDateTime dateTime;
+
+    public Message(Long channelId, String text, LocalDateTime dateTime) {
         this.channelId = channelId;
         this.text = text;
+        this.dateTime = dateTime;
+    }
+
+    public String getDateTime() {
+        return dateTime.toString();
     }
 
     @ManyToOne

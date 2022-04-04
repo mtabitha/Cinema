@@ -54,8 +54,8 @@
                 <td width="50%" align="center">${movie.ageRestriction.explanation}</td>
                 <td width="50%" align="center">${movie.description}</td>
                 <td width="50%" align="center">
-                    <#if movie.posterLink??>
-                        <img src="/admin/panel/films/poster/${movie.posterLink}" width="50" height="50">
+                    <#if movie.poster??>
+                        <img src="/admin/panel/films/poster/${movie.poster.uuid}" width="50" height="50">
                     </#if>
                 </td>
             </tr>

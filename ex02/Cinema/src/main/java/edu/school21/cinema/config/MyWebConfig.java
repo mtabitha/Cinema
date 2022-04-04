@@ -24,7 +24,10 @@ public class MyWebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/admin/panel/films/poster/**")
-                .addResourceLocations("file://" + storagePath + "/");
+                .addResourceLocations("file://" + storagePath + "/posters/");
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file://" + storagePath + "/avatars/");
+
     }
 
     @Bean

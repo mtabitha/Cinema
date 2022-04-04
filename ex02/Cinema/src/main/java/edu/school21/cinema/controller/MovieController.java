@@ -28,6 +28,8 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+
+
     @GetMapping
     public String getMovies(Model model) {
         model.addAttribute("movies", movieService.getMoves());

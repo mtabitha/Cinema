@@ -1,5 +1,6 @@
 package edu.school21.cinema.service;
 
+import edu.school21.cinema.model.Image;
 import edu.school21.cinema.model.Movie;
 import edu.school21.cinema.repositories.MovieRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,28 +19,22 @@ public class MovieService {
     @Autowired
     public MovieRepo movieRepo;
 
-    @Value("${storage.path}")
-    private String storagePath;
+    @Autowired
+    private ImageService imageService;
 
     public List<Movie> getMoves() {
         return movieRepo.findAll();
     }
 
     public void addNew(Movie movie, MultipartFile file) throws IOException {
-        movie.setPosterLink(savePoster(file));
+
+        Image poster = null;
+        if (file != null) {
+            poster = imageService.addNew("/posters", file);
+        }
+        movie.setPoster(poster);
         movieRepo.save(movie);
     }
 
-    private String savePoster(MultipartFile file) throws IOException {
-        String resultFilename = "";
-        if (file != null) {
-            File storageDir = new File(storagePath);
-            if (!storageDir.exists())
-                storageDir.mkdir();
-            resultFilename = UUID.randomUUID() + "." + file.getOriginalFilename();
-            file.transferTo(new File(storagePath + "/" + resultFilename));
-        }
-        return resultFilename;
-    }
 
 }

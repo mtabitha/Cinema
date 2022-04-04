@@ -29,14 +29,33 @@
       stompClient.send("/app" + path, {}, JSON.stringify({'text': $("#name").val(), 'channelId' : id}));
     }
 
-    function showGreeting(message) {
-      $("#greetings").append(
-              '<tr>' +
+    function showGreeting(messages) {
+      $("#greetings").empty()
+      for ( message of messages) {
+        var image = message.user.avatar == null ? null : message.user.avatar.uuid;
+        $("#greetings").append(
+                '<tr>' +
                 '<td>user' + message.user.id + '</td>' +
                 '<td>' + message.text + '</td>' +
-                '<td><img src="/admin/panel/films/poster/' + message.user.image + '" width="50" height="50"></td>' +
-              '</tr>'
-      )
+                '<td><img src="/images/' + image + '" width="50" height="50"></td>' +
+                '</tr>'
+        )
+      }
+    }
+
+    function upload(path) {
+      var file_data = $('#file').prop('files')[0];
+      var form_data = new FormData();
+      form_data.append('file', file_data);
+      $.ajax({
+        url: path + '/images', // point to server-side controller method
+        dataType: 'text', // what to expect back from the server
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: form_data,
+        type: 'post'
+      });
     }
 
     $(function () {
@@ -46,6 +65,7 @@
       const path = new URL(document.URL, document.location, true).pathname;
       connect(path);
       $( "#send" ).click(function() { sendName(path); $('#name').val(''); });
+      $("#upload").on('click', function () { upload(path);  $('#file').val('');})
     });
 
   </script>
@@ -80,8 +100,8 @@
             <td width="50%" align="center">user${message.user.id}</td>
             <td width="50%" align="center">${message.text}</td>
             <td width="50%" align="center">
-              <#if message.user.image??>
-                <img src="/admin/panel/films/poster/${message.user.image}" width="50" height="50">
+              <#if message.user.avatar??>
+                <img src="/images/${message.user.avatar.uuid}" width="50" height="50">
               </#if>
             </td>
           </tr>
@@ -91,5 +111,9 @@
     </div>
   </div>
 </div>
+  <input id=file type="file" name="file" multiple>
+  <button type="submit" id="upload">Avatar</button>
+
+
 </body>
 </html>

@@ -25,7 +25,8 @@ public class Movie {
 
     private String description;
 
-    private String posterLink;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Image poster;
 
     public Movie(String title, String year, String description, AgeRestriction ageRestriction) {
         this.title = title;

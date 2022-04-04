@@ -49,7 +49,7 @@
                                 '<tr>' +
                                 '<td>' + element.time + '</td>' +
                                 '<td><a href ="/sessions/' + element.id + '">' + element.movie.title + '</a></td>' +
-                                '<td><img src="/admin/panel/films/poster/' + element.movie.posterLink + '" width="50" height="50"></td>' +
+                                '<td><img src="/admin/panel/films/poster/' + element.movie.poster.uuid + '" width="50" height="50"></td>' +
                                 '</tr>'
                             )
                         }
