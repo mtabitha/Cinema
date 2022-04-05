@@ -5,6 +5,17 @@
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <#--  <script src="classpath:../ftl/app.js"></script>-->
+
+  <style>
+    .layer {
+      overflow: scroll; /* Добавляем полосы прокрутки */
+      width: 300px; /* Ширина блока */
+      height: 150px; /* Высота блока */
+      padding: 5px; /* Поля вокруг текста */
+      border: solid 1px black; /* Параметры рамки */
+    }
+  </style>
+
   <script type="text/javascript">
     var stompClient = null;
 
@@ -84,9 +95,8 @@
       </form>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <table id="conversation" class="table table-striped">
+  <div class="layer">
+      <table id="conversation">
         <thead>
         <tr>
           <th>User</th>
@@ -108,7 +118,6 @@
         </#list>
         </tbody>
       </table>
-    </div>
   </div>
 </div>
   <input id=file type="file" name="file" multiple>

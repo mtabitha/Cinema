@@ -46,8 +46,8 @@
             <th>Price</th>
         </tr>
         </thead>
+        <#if session??>
         <tbody>
-        <#list sessions as session>
             <tr >
                 <td width="50%" align="center">${session.id}</td>
                 <td width="50%" align="center">${session.hall.id}</td>
@@ -57,8 +57,9 @@
                 <td width="50%" align="center">${session.time}</td>
                 <td width="50%" align="center">${session.price}</td>
             </tr>
-        </#list>
         </tbody>
+            <a href="/films/${session.id}/chat">Chat</a>
+        </#if>
     </table>
 
 

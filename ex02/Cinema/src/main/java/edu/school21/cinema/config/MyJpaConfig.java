@@ -45,25 +45,6 @@ public class MyJpaConfig {
         return dataSource;
     }
 
-//    @Bean
-//    DatabasePopulator databasePopulator() {
-//        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-//        databasePopulator.addScripts(
-////                new ClassPathResource("sql/schema.sql"),
-//                new ClassPathResource("sql/data.sql")
-//        );
-//        return databasePopulator;
-//    }
-//
-//    @Bean
-//    DataSourceInitializer dataSourceInitializer() {
-//
-//        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
-//        dataSourceInitializer.setDataSource(dataSource());
-//        dataSourceInitializer.setDatabasePopulator(databasePopulator());
-//        return dataSourceInitializer;
-//    }
-
     @Bean
     LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();

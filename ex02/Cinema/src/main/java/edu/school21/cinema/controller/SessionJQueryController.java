@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/sessions")
@@ -34,11 +35,9 @@ public class SessionJQueryController {
     public String showSession(@PathVariable Long id,
                               Model model) {
 
-        List<Session> sessions = new ArrayList<>();
-
-        sessionService.getSession(id).ifPresent(sessions::add);
-
-        model.addAttribute("sessions", sessions);
+        Optional<Session> session = sessionService.getSession(id);
+        if (session.isPresent())
+            model.addAttribute("session", session.get());
         return "SessionNew";
     }
 
