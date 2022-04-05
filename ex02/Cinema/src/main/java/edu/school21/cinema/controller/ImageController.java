@@ -25,22 +25,15 @@ import java.util.Arrays;
 public class ImageController {
 
     @Autowired
-    private ImageService imageService;
+    private UserService userService;
 
-    @Autowired
-    private UserRepo userRepo;
-
-    @Autowired
-    private HttpServletRequest req;
 
     @PostMapping("/films/{id}/chat/images")
     @ResponseBody
-    public String newImage(@RequestParam("file") MultipartFile file) {
-        Long id = Long.parseLong(Arrays.stream(req.getCookies()).filter(c -> c.getName().equals("id")).findAny().get().getValue());
-        User userFromDB = userRepo.findById(id).get();
-        userFromDB.setAvatar(imageService.addNew("/avatars", file));
-        userRepo.save(userFromDB);
-        return "added";
+    public void newImage(@RequestParam("file") MultipartFile file) {
+
+        userService.addUserAvatar(file);
+
     }
 
 }

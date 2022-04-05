@@ -63,7 +63,7 @@
     <form method="post">
         <select name="movieId" >
             <#list movies as movie>
-                <option value="${movie.id}">${movie.title}</option>
+                <option value="${movie.id}">${movie.title}, ${movie.year}</option>
             </#list>
         </select>
         <select name="hallId">

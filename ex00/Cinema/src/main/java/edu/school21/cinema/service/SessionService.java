@@ -7,6 +7,7 @@ import edu.school21.cinema.repositories.SessionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class SessionService {
         return sessionRepo.findAll();
     }
 
+    @Transactional
     public void addNew(Session session, Long hallId, Long movieId) {
         session.setHall(hallRepo.findById(hallId).get());
         session.setMovie(movieRepo.findById(movieId).get());
