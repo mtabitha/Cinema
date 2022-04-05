@@ -70,8 +70,8 @@
                 <option value="${hall.id}">${hall.id}</option>
             </#list>
         </select>
-        <input type="time"  name="time">
-        <input type="number" min="0" max="10000" name="price" placeholder="Price: ">
+        <input type="time" name="time" required="required">
+        <input type="number" required="required" min="0" max="10000" name="price" placeholder="Price: ">
         <button type="submit" >New Session</button>
     </form>
 

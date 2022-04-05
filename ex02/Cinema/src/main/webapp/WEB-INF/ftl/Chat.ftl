@@ -9,10 +9,12 @@
   <style>
     .layer {
       overflow: scroll; /* Добавляем полосы прокрутки */
-      width: 300px; /* Ширина блока */
-      height: 150px; /* Высота блока */
+      overflow-anchor: none;
+      width: 500px; /* Ширина блока */
+      height: 300px; /* Высота блока */
       padding: 5px; /* Поля вокруг текста */
       border: solid 1px black; /* Параметры рамки */
+      margin: 0 auto; /* Выравнивание по центру */
     }
   </style>
 
@@ -37,7 +39,9 @@
 
     function sendName(path) {
       var id = document.cookie.split(';').find(s => s.match('id')).split('=')[1];
-      stompClient.send("/app" + path, {}, JSON.stringify({'text': $("#name").val(), 'channelId' : id}));
+      if ($("#name").val().length != 0) {
+        stompClient.send("/app" + path, {}, JSON.stringify({'text': $("#name").val(), 'channelId': id}));
+      }
     }
 
     function showGreeting(messages) {
@@ -46,9 +50,9 @@
         var image = message.user.avatar == null ? null : message.user.avatar.uuid;
         $("#greetings").append(
                 '<tr>' +
-                '<td>user' + message.user.id + '</td>' +
-                '<td>' + message.text + '</td>' +
-                '<td><img src="/images/' + image + '" width="50" height="50"></td>' +
+                '<td  width="30%" align="center"><img src="/images/' + image + '" width="50" height="50"></td>' +
+                '<td  width="20%" align="center">user' + message.user.id + '</td>' +
+                '<td  width="50%" align="center">' + message.text + '</td>' +
                 '</tr>'
         )
       }
@@ -83,45 +87,50 @@
 
 </head>
 <body>
+<div id="load-avatar" align="center">
+  <input id=file type="file" name="file" multiple>
+  <button type="submit" id="upload">Load avatar</button>
+</div>
 <div id="main-content" class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="name">What is your name?</label>
-          <input type="text" id="name" class="form-control" placeholder="Your name here...">
-        </div>
-        <button id="send" class="btn btn-default" type="submit">Send</button>
-      </form>
-    </div>
-  </div>
+  <br/>
   <div class="layer">
       <table id="conversation">
         <thead>
         <tr>
-          <th>User</th>
-          <th>Text</th>
-          <th>Image</th>
+          <th width="30%" align="center"></th>
+          <th width="20%" align="center">User</th>
+          <th width="50%" align="center">Message</th>
         </tr>
         </thead>
         <tbody id="greetings">
         <#list messages as message>
           <tr >
-            <td width="50%" align="center">user${message.user.id}</td>
-            <td width="50%" align="center">${message.text}</td>
-            <td width="50%" align="center">
+            <td width="30%" align="center">
               <#if message.user.avatar??>
                 <img src="/images/${message.user.avatar.uuid}" width="50" height="50">
               </#if>
             </td>
+            <td width="20%" align="center">user${message.user.id}</td>
+            <td width="50%" align="center">${message.text}</td>
           </tr>
         </#list>
         </tbody>
       </table>
   </div>
+  <br/>
 </div>
-  <input id=file type="file" name="file" multiple>
-  <button type="submit" id="upload">Avatar</button>
+
+<div class="row" align="center">
+  <div class="col-md-6">
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="name"></label>
+        <input type="text" id="name" class="form-control" placeholder="Type message:" size="30">
+        <button id="send" class="btn btn-default" type="submit">Send</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 
 </body>

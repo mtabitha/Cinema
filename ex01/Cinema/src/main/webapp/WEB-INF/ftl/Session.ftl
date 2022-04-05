@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greeting</title>
+    <title>Sessions</title>
     <style>
         body {
             font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
@@ -10,7 +10,6 @@
         h1 {
             font-size: 36px; /* Размер шрифта */
             margin: 0; /* Убираем отступы */
-            color: #fc6; /* Цвет текста */
         }
         h2 {
             margin-top: 0; /* Убираем отступ сверху */
@@ -34,6 +33,7 @@
     </style>
 </head>
 <body>
+    <h1>List of sessions</h1>
     <table width="1000" border="1" cellpadding="4" cellspacing="0">
         <thead bgcolor="#C0C0C0">
         <tr>
@@ -49,12 +49,12 @@
         <#if sessions??>
         <#list sessions as session>
             <tr >
-                <td width="50%" align="center">${session.id}</td>
-                <td width="50%" align="center">${session.hall.id}</td>
-                <td width="50%" align="center">${session.movie.title}</td>
-                <td width="50%" align="center">${session.movie.year}</td>
-                <td width="50%" align="center">${session.time}</td>
-                <td width="50%" align="center">${session.price}</td>
+                <td width="10%" align="center">${session.id}</td>
+                <td width="10%" align="center">${session.hall.id}</td>
+                <td width="20%" align="center">${session.movie.title}</td>
+                <td width="20%" align="center">${session.movie.year}</td>
+                <td width="20%" align="center">${session.time}</td>
+                <td width="20%" align="center">${session.price}</td>
             </tr>
         </#list>
         </#if>
@@ -72,8 +72,8 @@
                 <option value="${hall.id}">${hall.id}</option>
             </#list>
         </select>
-        <input type="time"  name="time">
-        <input type="text" name="price" placeholder="Price: ">
+        <input type="time" name="time" required="required">
+        <input type="number" min="0" max="10000" name="price" required="required" placeholder="Price: ">
         <button type="submit" >New Session</button>
     </form>
 

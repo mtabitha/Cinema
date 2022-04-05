@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greeting</title>
+    <title>Film search</title>
     <style>
         body {
             font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
@@ -10,7 +10,6 @@
         h1 {
             font-size: 36px; /* Размер шрифта */
             margin: 0; /* Убираем отступы */
-            color: #fc6; /* Цвет текста */
         }
         h2 {
             margin-top: 0; /* Убираем отступ сверху */
@@ -41,15 +40,15 @@
                 $.ajax({
                     type: "GET",
                     url: "/sessions/search",
-                    data: {"filmName" : $("#search").val()},
+                    data: {"filmName" : $("#search").val().toLowerCase()},
                     success: function (date) {
                         $("#resp").empty()
                         for (const element of date) {
                             $("#resp").append(
                                 '<tr>' +
-                                '<td>' + element.time + '</td>' +
-                                '<td><a href ="/sessions/' + element.id + '">' + element.movie.title + '</a></td>' +
-                                '<td><img src="/admin/panel/films/poster/' + element.movie.posterLink + '" width="50" height="50"></td>' +
+                                '<td width="20%" align="center">' + element.time + '</td>' +
+                                '<td width="40%" align="center"><a href ="/sessions/' + element.id + '">' + element.movie.title + '</a></td>' +
+                                '<td width="40%" align="center"><img src="/admin/panel/films/poster/' + element.movie.posterLink + '" width="100" height="100"></td>' +
                                 '</tr>'
                             )
                         }

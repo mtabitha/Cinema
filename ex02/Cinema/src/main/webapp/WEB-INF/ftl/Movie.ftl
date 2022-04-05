@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greeting</title>
+    <title>Films</title>
     <style>
         body {
             font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
@@ -10,7 +10,6 @@
         h1 {
             font-size: 36px; /* Размер шрифта */
             margin: 0; /* Убираем отступы */
-            color: #fc6; /* Цвет текста */
         }
         h2 {
             margin-top: 0; /* Убираем отступ сверху */
@@ -34,6 +33,7 @@
     </style>
 </head>
 <body>
+    <h1>List of movies</h1>
     <table width="1000" border="1" cellpadding="4" cellspacing="0">
         <thead bgcolor="#C0C0C0">
         <tr>
@@ -48,14 +48,14 @@
         <tbody>
         <#list movies as movie>
             <tr >
-                <td width="50%" align="center">${movie.id}</td>
-                <td width="50%" align="center">${movie.title}</td>
-                <td width="50%" align="center">${movie.year}</td>
-                <td width="50%" align="center">${movie.ageRestriction.explanation}</td>
-                <td width="50%" align="center">${movie.description}</td>
-                <td width="50%" align="center">
+                <td width="10%" align="center">${movie.id}</td>
+                <td width="20%" align="center">${movie.title}</td>
+                <td width="10%" align="center">${movie.year}</td>
+                <td width="10%" align="center">${movie.ageRestriction.explanation}</td>
+                <td width="30%" align="center">${movie.description}</td>
+                <td width="20%" align="center">
                     <#if movie.poster??>
-                        <img src="/admin/panel/films/poster/${movie.poster.uuid}" width="50" height="50">
+                        <img src="/admin/panel/films/poster/${movie.poster.uuid}" width="100" height="100">
                     </#if>
                 </td>
             </tr>
@@ -65,7 +65,7 @@
     <br/>
     <form method="post" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Title: "/>
-        <input type="text" name="year" placeholder="Year: "/>
+        <input type="number" min="1895" max="2022" name="year" placeholder="Year: "/>
         <input type="text" name="description" placeholder="Description: "/>
         <select name="ageRestriction">
             <#list ages as age>

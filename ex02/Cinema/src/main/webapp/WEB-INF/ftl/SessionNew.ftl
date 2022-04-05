@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greeting</title>
+    <title>Film profile</title>
     <style>
         body {
             font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
@@ -10,7 +10,6 @@
         h1 {
             font-size: 36px; /* Размер шрифта */
             margin: 0; /* Убираем отступы */
-            color: #fc6; /* Цвет текста */
         }
         h2 {
             margin-top: 0; /* Убираем отступ сверху */
@@ -49,16 +48,16 @@
         <#if session??>
         <tbody>
             <tr >
-                <td width="50%" align="center">${session.id}</td>
-                <td width="50%" align="center">${session.hall.id}</td>
-                <td width="50%" align="center">${session.movie.title}</td>
-                <td width="50%" align="center">${session.movie.description}</td>
-                <td width="50%" align="center">${session.movie.year}</td>
-                <td width="50%" align="center">${session.time}</td>
-                <td width="50%" align="center">${session.price}</td>
+                <td width="10%" align="center">${session.id}</td>
+                <td width="10%" align="center">${session.hall.id}</td>
+                <td width="10%" align="center">${session.movie.title}</td>
+                <td width="10%" align="center">${session.movie.description}</td>
+                <td width="10%" align="center">${session.movie.year}</td>
+                <td width="30%" align="center">${session.time}</td>
+                <td width="20%" align="center">${session.price}</td>
             </tr>
         </tbody>
-            <a href="/films/${session.id}/chat">Chat</a>
+            <a align="center" href="/films/${session.id}/chat">Go to chatroom</a>
         </#if>
     </table>
 

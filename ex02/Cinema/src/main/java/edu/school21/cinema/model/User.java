@@ -17,7 +17,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_SEQ")
     private Long id;
     private LocalDateTime dateTime;
     private String          ip;

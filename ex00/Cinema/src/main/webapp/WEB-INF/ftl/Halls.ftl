@@ -52,7 +52,7 @@
     </table>
     <br/>
     <form action="/admin/panel/halls" method="post">
-        <input type="number" min="1" max="300" name="size" placeholder="Size: "/>
+        <input type="number" required="required" min="1" max="300" name="size" placeholder="Size: "/>
         <input type="submit" value="New Hall"/>
     </form>
 </body>

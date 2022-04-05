@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Greeting</title>
+    <title>Halls</title>
     <style>
         body {
             font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
@@ -10,7 +10,6 @@
         h1 {
             font-size: 36px; /* Размер шрифта */
             margin: 0; /* Убираем отступы */
-            color: #fc6; /* Цвет текста */
         }
         h2 {
             margin-top: 0; /* Убираем отступ сверху */
@@ -34,6 +33,7 @@
     </style>
 </head>
 <body>
+    <h1>List of halls</h1>
     <table width="1000" border="1" cellpadding="4" cellspacing="0">
         <thead bgcolor="#C0C0C0">
         <tr>
@@ -52,7 +52,7 @@
     </table>
     <br/>
     <form action="/admin/panel/halls" method="post">
-        <input type="text" name="size" placeholder="Size: "/>
+        <input type="number" min="1" max="300" name="size" required="required" placeholder="Size: "/>
         <input type="submit" value="New Hall"/>
     </form>
 </body>
