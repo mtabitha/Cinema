@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Hello WebSocket</title>
+  <title>Chat</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
@@ -39,7 +39,7 @@
 
     function sendName(path) {
       var id = document.cookie.split(';').find(s => s.match('id')).split('=')[1];
-      if ($("#name").val().length != 0) {
+      if ($("#name").val().length !== 0) {
         stompClient.send("/app" + path, {}, JSON.stringify({'text': $("#name").val(), 'channelId': id}));
       }
     }

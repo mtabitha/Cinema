@@ -19,7 +19,8 @@ import java.util.Date;
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SES_SEQ")
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SES_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne

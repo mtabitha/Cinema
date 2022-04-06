@@ -1,5 +1,6 @@
 package edu.school21.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,10 @@ import java.util.Date;
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SES_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn
     private Hall hall;
@@ -28,6 +30,7 @@ public class Session {
 
     private Date time;
 
+    @JsonIgnore
     private Integer price;
 
     public Session(Date time, Integer price) {

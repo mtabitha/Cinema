@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "IMG_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String uuid;

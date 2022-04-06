@@ -1,5 +1,6 @@
 package edu.school21.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,15 +15,19 @@ import java.util.Set;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FILM_SEQ")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     private String title;
+    @JsonIgnore
     private String year;
 
+    @JsonIgnore
     @Enumerated(EnumType.ORDINAL)
     private AgeRestriction ageRestriction;
 
+    @JsonIgnore
     private String description;
 
     private String posterLink;
@@ -34,6 +39,7 @@ public class Movie {
         this.ageRestriction = ageRestriction;
     }
 
+    @JsonIgnore
     public boolean isValid() {
         return !title.isEmpty() && !year.isEmpty() && !description.isEmpty();
     }

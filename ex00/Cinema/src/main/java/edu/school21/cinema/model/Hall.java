@@ -18,7 +18,8 @@ import javax.persistence.Id;
 public class Hall {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "HALL_SEQ")
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "HALL_SEQ")
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
 
     private Integer size;
