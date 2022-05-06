@@ -5,7 +5,7 @@ MVP application to partially implement registration and authentication mechanism
 Each new exercise complements the previous one.
 
 ex00.
-  Web application provide HTML registration and authentication pages in response to /signIn and /signUp URL requests.
+	Web application provide HTML registration and authentication pages in response to /signIn and /signUp URL requests.
 All data go to SignUp servlet in a POST request using <form> HTML tag. The information is stored in a database, while the password shall be encrypted using BCrypt algorithm. 
   When a POST request is sent to SignIn servlet with an email and a password, a check is performed if a corresponding user exists in the database, as well as their password is correct.
 If the check is successful, an HttpSession object with user attribute shall be generated (attribute’s value is an object containing current user data).
